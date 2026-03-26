@@ -21,8 +21,8 @@ COPY pyproject.toml .
 COPY uv.lock .
 
 RUN uv sync --frozen
-RUN ls -lah /app && find /app -maxdepth 3 -type f | sort
-RUN find / -path "*/bin/pip" 2>/dev/null | head -50
+#RUN ls -lah /app && find /app -maxdepth 3 -type f | sort
+#RUN find / -path "*/bin/pip" 2>/dev/null | head -50
 
 RUN /app/.venv/bin/python -m ensurepip
 RUN /app/.venv/bin/python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
