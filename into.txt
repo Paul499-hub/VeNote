@@ -1,3 +1,9 @@
 GPU models:
     BAAI/bge-large-en
     open_clip ViT-H/14 (image)
+
+# Install using pip + pip-tools(for generating requirements.txt)
+    python -m pip install --user pip-tools
+    python -m piptools compile requirements.in 
+    (BAD , generates windows speicif stuff in requirements...)
+    (switching to hand pinned requirements.txt)
