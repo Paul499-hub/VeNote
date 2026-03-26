@@ -5,7 +5,7 @@ services:
   backend:
     build: .
     container_name: vn-backend
-    command: python3 app/test_gpu.py
+    command: .venv/bin/python app/main.py
     runtime: nvidia
     environment:
       - NVIDIA_VISIBLE_DEVICES=all

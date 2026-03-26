@@ -1,0 +1,17 @@
+
+[project]
+name = "vectornotepad"
+version = "0.1.0"
+description = "Local vector-based note search engine"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "python-dotenv",
+    "sentence-transformers", # or remove if only used inside Docker
+    "qdrant-client",
+    "pydantic",
+]
+
+[tool.uv]
+managed = true

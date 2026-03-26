@@ -30,3 +30,8 @@ The entire stack runs locally in isolated containers:
 - Backend service (FastAPI)
 - Qdrant vector database
 - Optional UI container (future)
+
+
+## For local runs 
+uv sync 
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
