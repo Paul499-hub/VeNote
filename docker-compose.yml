@@ -3,13 +3,28 @@ services:
   backend:
     build: .
     container_name: vn-backend
-    command: python3 app/test_gpu.py
+    command: python3 app/main.py
     runtime: nvidia
     environment:
-      - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - capabilities: [gpu]
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility
+      QDRANT_HOST: qdrant
+      QDRANT_PORT: 6333
+    ports:
+      - "8000:8000"
+    depends_on:
+      - qdrant
+    volumes:
+      - ./app:/app/app
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: vn-qdrant
+    ports:
+      - "6333:6333" # JSON HTTP
+      - "6334:6334" # gRPC
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+volumes:
+  qdrant_data:
