@@ -1,5 +1,5 @@
 
-🧪 VectorNotepad – GPU Docker Compatibility Test
+# 🧪 VectorNotepad – GPU Docker Compatibility Test
 
 This branch provides a **minimal, isolated test** to verify that **CUDA GPU acceleration works inside Docker** on any machine.  
 It is intended as a compatibility check **before** using GPU‑dependent features in the full VectorNotepad project.
