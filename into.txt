@@ -1,0 +1,3 @@
+GPU models:
+    BAAI/bge-large-en
+    open_clip ViT-H/14 (image)
