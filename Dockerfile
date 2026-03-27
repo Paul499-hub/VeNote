@@ -23,4 +23,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app ./app
 
-CMD ["python3", "app/test_gpu.py"]
+CMD ["python3", "app/main.py"]

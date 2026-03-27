@@ -1,11 +1,16 @@
-import torch
-from sentence_transformers import SentenceTransformer
+from app.routers.qdrant import router as qdrant_router
+from fastapi import FastAPI
+import uvicorn
 
-print("CUDA available:", torch.cuda.is_available())
-print("GPU name:", torch.cuda.get_device_name(0))
+# Define app
+app = FastAPI()
+# Register routers
+app.include_router(qdrant_router)
 
-model = SentenceTransformer("BAAI/bge-small-en", device="cuda")
+@app.get("/")
+async def root():
+    return {"status": "ok"}
 
-emb = model.encode(["Hello GPU world!"], convert_to_tensor=True)
-print("Embedding shape:", emb.shape)
-print("Embedding first 5 values:", emb[0][:5])
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
