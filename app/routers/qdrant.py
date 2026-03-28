@@ -14,16 +14,6 @@ def r_qdrant_get_collection():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.post("/create_collections", status_code=200)
-def r_qdrant_create_collections():
-    try:
-        qdrant_svc.create_collections(["notes_test"])
-        return {"status": "ok", "collections": qdrant_svc.get_collection_info()}
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
 @router.post("/create_collection_default", status_code=200)
 def r_qdrant_create_collection():
     try:
@@ -54,3 +44,21 @@ def r_similarity_search(
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+
+
+
+
+
+# Un-used
+if False:
+    pass
+    # @router.post("/create_collections", status_code=200)
+    # def r_qdrant_create_collections():
+    #     try:
+    #         qdrant_svc.create_collections(["notes_test"])
+    #         return {"status": "ok", "collections": qdrant_svc.get_collection_info()}
+    #     except ValueError as e:
+    #         raise HTTPException(status_code=400, detail=str(e))
+    #     except Exception as e:
+    #         raise HTTPException(status_code=500, detail=str(e))
