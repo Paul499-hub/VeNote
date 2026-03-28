@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- STYLE .css -->
     <link rel="stylesheet" href="/static/css/main.css">
     <title>
         Venote
@@ -8,10 +13,72 @@
 </head>
 <body>
     <h1 class="test_cls">VeNote</h1>
-    <textarea id="note_input" placeholder="Note text..."></textarea>
-    <button id="save-note-btn">Save note</button>
-    <button id="search-note-btn">Search note</button>
-    <div id="search-results"></div>
+    <textarea class="note_textarea" id="note_input" placeholder="Note text..."></textarea>
+    <!-- <div class="form-control">
+        <textarea id="note_input" class="input input-alt" placeholder="Type something intelligent" required="" type="text"></textarea>
+        <span class="input-border input-border-alt"></span>
+    </div> -->
+
+
+    <div class="btn_area_wrapper">
+        <!-- <button id="save-note-btn">Save note</button> -->
+        <div class="btn_wrapper">
+            <button id="save-note-btn" class="animated-button">
+                <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                    ></path>
+                </svg>
+                <span class="text">⤓ save note</span>
+                <span class="circle"></span>
+                <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                    ></path>
+                </svg>
+            </button>
+        </div>
+        <!-- <button id="search-note-btn">Search note</button> -->
+        <div class="btn_wrapper">
+            <button id="search-note-btn" class="animated-button">
+                <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                    ></path>
+                </svg>
+                <span class="text">⌕ search note</span>
+                <span class="circle"></span>
+                <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                    ></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+
+    <div id="search-results" class="search-results"></div>
+
+    <template id="search-result-template">
+        <div class="parent">
+            <div class="card">
+                <div class="content-box">
+                <span class="card-title">3D Card</span>
+                <p class="card-content">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                </p>
+                <!-- <span class="see-more">See More</span> -->
+                </div>
+                <div class="date-box">
+                <span class="month">JUNE</span>
+                <span class="date">29</span>
+                </div>
+            </div>
+        </div>
+    </template>
+
+
 
 <script src="/static/js/main.js"></script>
 </body>

@@ -2,6 +2,7 @@ const noteInputEl = document.getElementById("note_input")
 const saveNoteBtnEl = document.getElementById("save-note-btn")
 const searchNoteBtnEl = document.getElementById("search-note-btn")
 const searchResultsEl = document.getElementById("search-results")
+const searchResultTemplate = document.getElementById("search-result-template")
 
 saveNoteBtnEl.addEventListener("click", saveNote)
 searchNoteBtnEl.addEventListener("click", searchNote)
@@ -43,13 +44,19 @@ async function searchNote(){
     console.log(data)
     searchResultsEl.innerHTML = "";
     data.forEach( (item, index)=>{
-        const resultEl = document.createElement("div")
-        resultEl.className = "search-result-el"
-        resultEl.innerHTML = `
-            <div><strong>#${index + 1}</strong></div>
-            <div><strong>Score:</strong>${item.score}</div>
-            <div><strong>Text:</strong>${item.text}</div>
-        `;
-        searchResultsEl.appendChild(resultEl)
+
+        const fragment = searchResultTemplate.content.cloneNode(true);
+        fragment.querySelector(".card-title").textContent = `#${index + 1}`;
+        fragment.querySelector(".card-content").textContent = `${item.text}`;
+        searchResultsEl.appendChild(fragment);
+
+        // const resultEl = document.createElement("div")
+        // resultEl.className = "search-result-el"
+        // resultEl.innerHTML = `
+        //     <div><strong>#${index + 1}</strong></div>
+        //     <div><strong>Score:</strong>${item.score}</div>
+        //     <div><strong>Text:</strong>${item.text}</div>
+        // `;
+        // searchResultsEl.appendChild(resultEl)
     })
 }
