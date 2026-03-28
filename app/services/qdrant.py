@@ -98,13 +98,12 @@ class QdrantService:
             query = vector,
             limit = args_limit,
         )
-        return search_result
-        # return [
-        #     {
-        #         "id": result.id,
-        #         "score": result.score,
-        #         "payload": result.payload,
-        #     }
-        #     for result in search_result
-        # ]   
+        return [
+            {
+                "id": s.id,
+                "score": s.score,
+                "text": s.payload.get("text") if s.payload else None,
+            }
+            for s in search_result.points
+        ]
 
