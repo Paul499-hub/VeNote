@@ -1,6 +1,7 @@
 from app.routers.embedding import router as embedding_router
 from app.routers.qdrant import router as qdrant_router
 from app.routers.ui import router as ui_router
+from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 import uvicorn
@@ -12,6 +13,12 @@ async def lifespan(app: FastAPI):
     yield
 # Define app
 app = FastAPI(lifespan=lifespan)
+# Register css/js
+app.mount(
+    "/static",
+    StaticFiles(directory="app/static"),
+    name="static"
+)
 # Register routers
 app.include_router(qdrant_router)
 app.include_router(embedding_router)
