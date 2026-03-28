@@ -3,7 +3,7 @@ from qdrant_client import QdrantClient
 import uuid
 # Modules
 from app.services.embedding import EmbeddingService
-from app.schemas.embedding import TextEmbedRequest
+from app.schemas.embedding import IN_TextEmbedRequest, F_EmbedTextOut, IN_SimilaritySearchRequest
 from app.core.config import settings
 
 class QdrantService:
@@ -53,18 +53,18 @@ class QdrantService:
             })
         return result
 
-    def store_vector(self, payload: TextEmbedRequest) -> dict:
-        emb_resp = self.embedding_svc.embed_text(payload=payload)
-        if emb_resp.get('vector_size') != settings.qdrant_vector_length:
-            err_str= '\n'.join([
-                "Embedded vector length does not match qdrant collection's vector length",
-                f"emb len:{emb_resp.get('vector_size')}",
-                f"val_type:{type(emb_resp.get('vector_size'))}",
-                f"qdrant len:{settings.qdrant_vector_length}",
-                f"val_type:{type(settings.qdrant_vector_length)}",
-            ])
-            raise ValueError(err_str)
-        vector = emb_resp.get("vector")
+    def validate_emb_response_len(self, emb_resp: F_EmbedTextOut):
+        if emb_resp.vector_size != settings.qdrant_vector_length:
+            raise ValueError(
+                f"Embedded vector len does not match qdrant collection's vector length",
+                f"emb len: {emb_resp.vector_size}",
+                f"qdrant len: {settings.qdrant_vector_length}"
+            )
+
+    def store_vector(self, payload: IN_TextEmbedRequest) -> dict:
+        emb_resp:F_EmbedTextOut = self.embedding_svc.embed_text(text=payload.text)
+        self.validate_emb_response_len(emb_resp)
+        vector = emb_resp.vector
         # Check if generated point_id already exists
         for _ in range(5):
             point_id = str(uuid.uuid4())
@@ -88,3 +88,23 @@ class QdrantService:
             ]
         )
         return {"point_id": point_id}
+
+    def similarity_search(self, payload: IN_SimilaritySearchRequest, args_limit:int = 5):
+        emb_resp:F_EmbedTextOut = self.embedding_svc.embed_text(text=payload.text)
+        self.validate_emb_response_len(emb_resp)
+        vector = emb_resp.vector
+        search_result = self.client.query_points(
+            collection_name = self.default_collection_name,
+            query = vector,
+            limit = args_limit,
+        )
+        return search_result
+        # return [
+        #     {
+        #         "id": result.id,
+        #         "score": result.score,
+        #         "payload": result.payload,
+        #     }
+        #     for result in search_result
+        # ]   
+
