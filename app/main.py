@@ -1,5 +1,6 @@
-from app.routers.qdrant import router as qdrant_router
 from app.routers.embedding import router as embedding_router
+from app.routers.qdrant import router as qdrant_router
+from app.routers.ui import router as ui_router
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 import uvicorn
@@ -14,6 +15,7 @@ app = FastAPI(lifespan=lifespan)
 # Register routers
 app.include_router(qdrant_router)
 app.include_router(embedding_router)
+app.include_router(ui_router)
 
 @app.get("/")
 async def root():
