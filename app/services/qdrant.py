@@ -1,4 +1,5 @@
 from qdrant_client.models import Distance, VectorParams, PointStruct
+from qdrant_client.models import PointIdsList
 from qdrant_client import QdrantClient
 import uuid
 # Modules
@@ -6,6 +7,7 @@ from app.services.embedding import EmbeddingService
 from app.services.sqlite import SQLiteService
 from app.schemas.embedding import IN_TextEmbedRequest, F_EmbedTextOut, IN_SimilaritySearchRequest
 from app.core.config import settings
+
 
 class QdrantService:
     def __init__(self, host:str, port:int, embedding_svc: EmbeddingService):
@@ -105,4 +107,11 @@ class QdrantService:
             }
             for s in search_result.points
         ]
+    
+    def delete_vector(self, note_id:int) -> dict:
+        self.client.delete(
+            collection_name = self.default_collection_name,
+            points_selector = PointIdsList(points=[note_id]),
+        )
+        return {"deleted_point_id": note_id}
 

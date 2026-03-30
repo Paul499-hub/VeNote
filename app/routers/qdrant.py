@@ -45,9 +45,16 @@ def r_similarity_search(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
-
-
-
+@router.delete("/del_vector/{note_id}", status_code=200)
+def r_delete_vector(
+                    note_id: int
+                ):
+    try:
+        return qdrant_svc.delete_vector(note_id = note_id)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 # Un-used

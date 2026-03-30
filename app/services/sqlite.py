@@ -34,3 +34,15 @@ class SQLiteService():
             return session.query(NoteORM).count()
         finally:
             session.close()
+
+    def delete_note(self, note_id:int ):
+        session = SessionLocal()
+        try:
+            note = session.get(NoteORM, note_id)
+            if not note:
+                raise ValueError(f"Note with id {note_id} not found")
+            session.delete(note)
+            session.commit()
+            return {"deleted_note_id": note_id}
+        finally:
+            session.close()

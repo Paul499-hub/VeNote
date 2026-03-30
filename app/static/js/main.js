@@ -14,10 +14,25 @@ function display_found_cards_HTML(data){
     console.log(data)
     searchResultsEl.innerHTML = "";
     data.forEach( (item, index)=>{
-
         const fragment = searchResultTemplate.content.cloneNode(true);
         fragment.querySelector(".card-title").textContent = `#${index + 1}`;
         fragment.querySelector(".card-content").textContent = `${item.text}`;
+        
+        const del_btn = fragment.querySelector(".delete_note")
+        const noteId = item.id
+        del_btn.onclick = async (event) => {
+            const response = await fetch(`/storage/del/${noteId}`, {
+                method: "DELETE",
+            });
+            if (!response.ok) {
+                const err = await response.json();
+                alert(err.detail || "Delete failed");
+                return;
+            }
+            const result = await response.json();
+            alert("❌ Note deleted");
+            event.currentTarget.closest(".parent").remove();
+        }
         searchResultsEl.appendChild(fragment);
     })
 }

@@ -13,3 +13,6 @@ class StorageService:
         note_id:int = sqlite_saved_note.id
         return self.qdrant_svc.store_vector(text=text,note_id=note_id)
         
+    def del_note(self, note_id: int):
+        self.qdrant_svc.delete_vector(note_id=note_id)
+        return self.sqlite_svc.delete_note(note_id=note_id)

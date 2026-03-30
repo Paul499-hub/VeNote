@@ -14,3 +14,14 @@ def r_save_note(
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+@router.delete("/del/{note_id}")
+def r_delete_note(
+                note_id: int
+                ):
+    try:
+        return storage_svc.del_note(note_id = note_id)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
