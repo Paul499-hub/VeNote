@@ -1,3 +1,5 @@
+<img width="1279" height="840" alt="image" src="https://github.com/user-attachments/assets/9f9e64d2-fd16-485d-99fc-ae5d4b59703e" />
+
 # 📝 VectorNotepad: Project Architecture Overview
 
 VectorNotepad is a local + docker AI-powered note storage and sematic search system.
