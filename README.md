@@ -6,7 +6,7 @@
 2. Open a terminal in the project root directory (where `Dockerfile` and `docker-compose.yml` are).
 3. Run `docker compose build`.
 4. Run `docker compose up`.
-5. Open `http://localhost:8000/ui/home` in your browser.
+5. Open `http://127.0.0.1:48721/ui/home` in your browser.
 
 # 📝 VectorNotepad: Project Architecture Overview
 

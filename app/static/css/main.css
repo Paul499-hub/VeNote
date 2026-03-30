@@ -148,7 +148,7 @@ textarea:focus {
 
 /* Card from Uiverse.io by imtausef */ 
 .parent {
-    width: 500px;
+    width: fit-content;
     padding: 20px;
     perspective: 1000px;
     margin-left: 4%;
@@ -185,6 +185,7 @@ textarea:focus {
   transform-style: preserve-3d;
 }
 .content-box .card-title {
+  padding-left: 15px;
   display: inline-block;
   /* color: #141414; */
   color: #c7c7c7;
@@ -203,6 +204,7 @@ textarea:focus {
   color: #c7c7c7;
   transition: all 0.5s ease-in-out;
   transform: translate3d(0px, 0px, 30px);
+  white-space: pre-wrap;
 }
 .content-box .card-content:hover {
   transform: translate3d(0px, 0px, 60px);
