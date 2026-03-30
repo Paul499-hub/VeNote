@@ -1,4 +1,5 @@
-<img width="1279" height="840" alt="image" src="https://github.com/user-attachments/assets/9f9e64d2-fd16-485d-99fc-ae5d4b59703e" />
+<img width="1275" height="777" alt="image" src="https://github.com/user-attachments/assets/c4202172-ab0f-4e2e-bcbc-e9c95207575d" />
+
 
 # 📝 VectorNotepad: Project Architecture Overview
 
