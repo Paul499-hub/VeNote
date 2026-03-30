@@ -23,16 +23,16 @@ def r_qdrant_create_collection():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.post("/store_note", status_code=200)
-def r_store_note_in_qdrant(
-                            payload: IN_TextEmbedRequest
-                        ):
-    try:
-        return qdrant_svc.store_vector(payload=payload)
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+# @router.post("/store_note", status_code=200)
+# def r_store_note_in_qdrant(
+#                             payload: IN_TextEmbedRequest
+#                         ):
+#     try:
+#         return qdrant_svc.store_vector(payload=payload)
+#     except ValueError as e:
+#         raise HTTPException(status_code=400, detail=str(e))
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=str(e))
     
 @router.post("/similarity_search", status_code=200)
 def r_similarity_search(

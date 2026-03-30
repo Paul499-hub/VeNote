@@ -3,6 +3,7 @@ from qdrant_client import QdrantClient
 import uuid
 # Modules
 from app.services.embedding import EmbeddingService
+from app.services.sqlite import SQLiteService
 from app.schemas.embedding import IN_TextEmbedRequest, F_EmbedTextOut, IN_SimilaritySearchRequest
 from app.core.config import settings
 
@@ -61,36 +62,33 @@ class QdrantService:
                 f"qdrant len: {settings.qdrant_vector_length}"
             )
 
-    def store_vector(self, payload: IN_TextEmbedRequest) -> dict:
-        emb_resp:F_EmbedTextOut = self.embedding_svc.embed_text(text=payload.text)
+    def store_vector(self, text:str, note_id:int) -> dict:
+        # E5 models were trained with "passage/query" prefixes
+        text_to_embed = text
+        if settings.embedding_model == "intfloat/e5-large-v2":
+            text_to_embed = f"passage: {text_to_embed}"
+        emb_resp:F_EmbedTextOut = self.embedding_svc.embed_text(text=text_to_embed)
         self.validate_emb_response_len(emb_resp)
         vector = emb_resp.vector
-        # Check if generated point_id already exists
-        for _ in range(5):
-            point_id = str(uuid.uuid4())
-            existing = self.client.retrieve(
-                    collection_name=self.default_collection_name,
-                    ids=[point_id],
-                )
-            if not existing:
-                break
-        else:
-            raise ValueError("Failed to generate a unique point id, try again")
         # Insert vector
         self.client.upsert(
             collection_name = self.default_collection_name,
             points = [
                 PointStruct(
-                    id = point_id,
+                    id = note_id,
                     vector = vector,
-                    payload={"text":payload.text}
+                    payload={"text":text}
                 )
             ]
         )
-        return {"point_id": point_id}
+        return {"point_id": note_id, "text_to_embed":text_to_embed}
 
     def similarity_search(self, payload: IN_SimilaritySearchRequest, args_limit:int = 5):
-        emb_resp:F_EmbedTextOut = self.embedding_svc.embed_text(text=payload.text)
+        # E5 models were trained with "passage/query" prefixes
+        text_to_embed = payload.text
+        if settings.embedding_model == "intfloat/e5-large-v2":
+            text_to_embed = f"query: {text_to_embed}"
+        emb_resp:F_EmbedTextOut = self.embedding_svc.embed_text(text=text_to_embed)
         self.validate_emb_response_len(emb_resp)
         vector = emb_resp.vector
         search_result = self.client.query_points(
@@ -103,6 +101,7 @@ class QdrantService:
                 "id": s.id,
                 "score": s.score,
                 "text": s.payload.get("text") if s.payload else None,
+                "text_to_embed": text_to_embed,
             }
             for s in search_result.points
         ]

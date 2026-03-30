@@ -4,7 +4,7 @@ from app.core.config import settings
 
 class EmbeddingService:
     def __init__(self):
-        self.model = SentenceTransformer(settings.embedding_model)
+        self.model = SentenceTransformer(settings.embedding_model, trust_remote_code=True)
 
     def embed_text(self, text:str) -> F_EmbedTextOut:
         vector = self.model.encode(text)

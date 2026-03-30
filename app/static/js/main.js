@@ -1,11 +1,26 @@
-const noteInputEl = document.getElementById("note_input")
-const saveNoteBtnEl = document.getElementById("save-note-btn")
+const searchResultTemplate = document.getElementById("search-result-template")
+const searchNoteSQLBtnEl = document.getElementById("search-note-sql-btn")
 const searchNoteBtnEl = document.getElementById("search-note-btn")
 const searchResultsEl = document.getElementById("search-results")
-const searchResultTemplate = document.getElementById("search-result-template")
+const saveNoteBtnEl = document.getElementById("save-note-btn")
+const noteInputEl = document.getElementById("note_input")
 
-saveNoteBtnEl.addEventListener("click", saveNote)
 searchNoteBtnEl.addEventListener("click", searchNote)
+saveNoteBtnEl.addEventListener("click", saveNote)
+searchNoteSQLBtnEl.addEventListener("click", searchNoteSQL)
+
+// Helper function to convert search result data to html cards
+function display_found_cards_HTML(data){
+    console.log(data)
+    searchResultsEl.innerHTML = "";
+    data.forEach( (item, index)=>{
+
+        const fragment = searchResultTemplate.content.cloneNode(true);
+        fragment.querySelector(".card-title").textContent = `#${index + 1}`;
+        fragment.querySelector(".card-content").textContent = `${item.text}`;
+        searchResultsEl.appendChild(fragment);
+    })
+}
 
 async function saveNote(){
     const text = noteInputEl.value.trim();
@@ -13,7 +28,7 @@ async function saveNote(){
         alert("Note text is empty!");
         return;
     }
-    const response = await fetch( "/qdrant/store_note", {
+    const response = await fetch( "/storage/save_note", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({"text":text})
@@ -41,22 +56,20 @@ async function searchNote(){
         }
     );
     const data = await response.json();
-    console.log(data)
-    searchResultsEl.innerHTML = "";
-    data.forEach( (item, index)=>{
+    display_found_cards_HTML(data)
+}
 
-        const fragment = searchResultTemplate.content.cloneNode(true);
-        fragment.querySelector(".card-title").textContent = `#${index + 1}`;
-        fragment.querySelector(".card-content").textContent = `${item.text}`;
-        searchResultsEl.appendChild(fragment);
-
-        // const resultEl = document.createElement("div")
-        // resultEl.className = "search-result-el"
-        // resultEl.innerHTML = `
-        //     <div><strong>#${index + 1}</strong></div>
-        //     <div><strong>Score:</strong>${item.score}</div>
-        //     <div><strong>Text:</strong>${item.text}</div>
-        // `;
-        // searchResultsEl.appendChild(resultEl)
+async function searchNoteSQL(){
+    const text = noteInputEl.value.trim()
+    if (!text){
+        alert("Note text is empty!");
+        return;
+    }
+    const response = await fetch("/sqlite/get", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({"text":text})
     })
+    const data = await response.json();
+    display_found_cards_HTML(data)
 }

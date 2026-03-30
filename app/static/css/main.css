@@ -3,6 +3,16 @@ body {
     font-family: "Inter", sans-serif;
 }
 
+.logo_img {
+  display: block;
+  width: 220px;
+  height: auto;
+  /* margin: 0 auto 24px auto; */
+  margin-left: 4%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .test_cls{
     color: white;
     margin-left: 4%;
@@ -22,6 +32,7 @@ body {
 
 /* Input textarea */
 .note_textarea {
+    min-width: 545px;
     background: #212020;
     color: white;
     border: none;
@@ -127,6 +138,7 @@ textarea:focus {
 .animated-button:active {
   scale: 0.95;
   box-shadow: 0 0 0 4px greenyellow;
+  box-shadow: 0 0 0 4px #adff2f;
 }
 .animated-button:hover .circle {
   width: 220px;
