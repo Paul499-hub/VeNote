@@ -3,9 +3,10 @@ from qdrant_client.models import PointIdsList
 from qdrant_client import QdrantClient
 import uuid
 # Modules
-from app.services.embedding import EmbeddingService
-from app.services.sqlite import SQLiteService
 from app.schemas.embedding import IN_TextEmbedRequest, F_EmbedTextOut, IN_SimilaritySearchRequest
+from app.services.embedding import EmbeddingService
+from app.core.helpers import parse_into_markdown
+from app.services.sqlite import SQLiteService
 from app.core.config import settings
 
 
@@ -64,14 +65,18 @@ class QdrantService:
                 f"qdrant len: {settings.qdrant_vector_length}"
             )
 
-    def store_vector(self, text:str, note_id:int) -> dict:
+    def embed_text(self, text:str) -> F_EmbedTextOut:
         # E5 models were trained with "passage/query" prefixes
         text_to_embed = text
         if settings.embedding_model == "intfloat/e5-large-v2":
             text_to_embed = f"passage: {text_to_embed}"
         emb_resp:F_EmbedTextOut = self.embedding_svc.embed_text(text=text_to_embed)
         self.validate_emb_response_len(emb_resp)
-        vector = emb_resp.vector
+        return emb_resp, text_to_embed
+
+    def store_vector(self, text:str, note_id:int) -> dict:
+        emb, text_to_embed = self.embed_text(text)
+        vector = emb.vector
         # Insert vector
         self.client.upsert(
             collection_name = self.default_collection_name,
@@ -102,7 +107,8 @@ class QdrantService:
             {
                 "id": s.id,
                 "score": s.score,
-                "text": s.payload.get("text") if s.payload else None,
+                "text":  s.payload.get("text") if s.payload else None,
+                "html_md": parse_into_markdown(s.payload.get('text')) if s.payload else None, 
                 "text_to_embed": text_to_embed,
             }
             for s in search_result.points
@@ -114,4 +120,4 @@ class QdrantService:
             points_selector = PointIdsList(points=[note_id]),
         )
         return {"deleted_point_id": note_id}
-
+        

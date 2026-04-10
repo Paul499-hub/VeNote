@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 # Modules
 from app.core.services import sqlite_svc
-from app.schemas.embedding import IN_TextEmbedRequest
+from app.schemas.embedding import IN_TextEmbedRequest, IN_UpdateRequest
 
 router = APIRouter(prefix="/sqlite", tags=["Sqlite"])
 
@@ -47,3 +47,23 @@ def r_count_notes():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
+@router.get("/deduplicate_sqlite", status_code=200)
+def r_deduplicate():
+    try:
+        return sqlite_svc.deduplicate_sqlite()
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@router.post("/update_note_sqlite", status_code = 200)
+def r_update_note(
+                payload: IN_UpdateRequest
+                ):
+    try:
+        return sqlite_svc.update_note(payload.id, payload.text)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
