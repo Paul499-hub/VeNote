@@ -1,4 +1,5 @@
-<img width="1275" height="777" alt="image" src="https://github.com/user-attachments/assets/c4202172-ab0f-4e2e-bcbc-e9c95207575d" />
+<img width="873" height="992" alt="image" src="https://github.com/user-attachments/assets/7562ddc5-0344-41ec-8d05-7fe5d3ffe85b" />
+
 
 
 # 🚀 How to launch the project
