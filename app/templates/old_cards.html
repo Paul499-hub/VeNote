@@ -1,0 +1,192 @@
+    <template id="search-result-template">
+        <div class="parent">
+            <div class="card">
+                <div class="content-box">
+                <span class="card-title">3D Card</span>
+                <p class="card-content">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                </p>
+                <!-- DELETE NOTE BUTTON  -->
+                <div class="btn_wrapper">
+                    <button id="del_note" class="animated-button">
+                        <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                            d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                            ></path>
+                        </svg>
+                        <span class="text">X delete note</span>
+                        <span class="circle"></span>
+                        <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                            d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                            ></path>
+                        </svg>
+                    </button>
+                </div>
+                <!-- UPDATE NOTE BUTTON  -->
+                <div class="btn_wrapper">
+                    <button id="update_note" class="animated-button">
+                        <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                            d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                            ></path>
+                        </svg>
+                        <span class="text">⟳ update note</span>
+                        <span class="circle"></span>
+                        <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                            d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                            ></path>
+                        </svg>
+                    </button>
+                </div>
+
+                </div>
+                <div class="date-box">
+                <span class="month">JUNE</span>
+                <span class="date">29</span>
+                </div>
+            </div>
+        </div>
+    </template>
+
+
+    <style>
+
+/* Card from Uiverse.io by imtausef */ 
+.parent {
+    width: fit-content;
+    padding: 20px;
+    perspective: 1000px;
+    margin-left: 4%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.card {
+  padding-top: 50px;
+  border-radius: 4px;
+  border: 3px solid #141414;
+  transform-style: preserve-3d;
+  /* background: linear-gradient(135deg, #0000 18.75%, #f3f3f3 0 31.25%, #0000 0),
+    repeating-linear-gradient(45deg, #f3f3f3 -6.25% 6.25%, #141414 0 18.75%); */
+  background-size: 60px 60px;
+  background-position:
+    0 0,
+    0 0;
+  background-color: #141414;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 30px 30px -10px;
+  transition: all 0.5s ease-in-out;
+}
+.card:hover {
+  background-position:
+    -100px 100px,
+    -100px 100px;
+  transform: rotate3d(0.5, 1, 0, 4deg);
+}
+.content-box {
+  /* background: #8ed500; */
+  /* border-radius: 10px 100px 10px 10px; */
+  transition: all 0.5s ease-in-out;
+  padding: 60px 60px 20px 60px;
+  transform-style: preserve-3d;
+}
+.content-box .card-title {
+  padding-left: 15px;
+  display: inline-block;
+  /* color: #141414; */
+  color: #c7c7c7;
+  font-size: 25px;
+  font-weight: 900;
+  transition: all 0.5s ease-in-out;
+  transform: translate3d(0px, 0px, 50px);
+}
+.content-box .card-title:hover {
+  transform: translate3d(0px, 0px, 60px);
+}
+.content-box .card-content {
+  margin-top: 10px;
+  margin-bottom: 50px;
+  font-size: 16px;
+  /* color: #141414; */
+  color: #c7c7c7;
+  transition: all 0.5s ease-in-out;
+  transform: translate3d(0px, 0px, 30px);
+  white-space: pre-wrap;
+}
+.content-box .card-content:hover {
+  transform: translate3d(0px, 0px, 60px);
+}
+.content-box .see-more {
+    cursor: pointer;
+    margin-top: 1rem;
+    display: inline-block;
+    font-weight: 900;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #8ed500;
+    background: #141414;
+    padding: 0.6rem 0.9rem;
+    transition: all 0.5s ease-in-out;
+    transform: translate3d(0px, 0px, 20px);
+}
+.content-box .see-more:hover {
+  transform: translate3d(0px, 0px, 60px);
+}
+.date-box {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  height: 60px;
+  width: 60px;
+  background: #141414;
+  border: 1px solid #c7c7c7;
+  /* border: 1px solid #8ed500; */
+  /* border-radius: 10px; */
+  padding: 10px;
+  transform: translate3d(0px, 0px, 80px);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 17px 10px -10px;
+}
+.date-box span {
+  display: block;
+  text-align: center;
+}
+.date-box .month {
+    color: #c7c7c7;
+    /* color: #8ed500; */
+    font-size: 9px;
+    font-weight: 700;
+}
+.date-box .date {
+  font-size: 20px;
+  font-weight: 900;
+  /* color: #8ed500; */
+  color: #c7c7c7;
+}
+
+.parent .delete_note {
+    cursor: pointer;
+    padding: 4px;
+    background: #ff1b1bf2;
+    color: antiquewhite;
+    box-shadow: 0px 0px 50px 0px red;
+}
+
+
+.card .btn_wrapper{
+    transform: translate3d(0px, 0px, 60px);
+    transform-style: preserve-3d;
+    position: relative;
+    z-index: 10;
+}
+
+.card .animated-button {
+  padding: 12px 36px;
+}
+
+.card .btn_wrapper {
+  margin-bottom: 35px;
+}
+
+
+    </style>

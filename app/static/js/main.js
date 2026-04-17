@@ -30,7 +30,7 @@ function display_found_cards_HTML(data){
     searchResultsEl.innerHTML = "";
     data.forEach( (item, index)=>{
         const fragment = searchResultTemplate.content.cloneNode(true);
-        fragment.querySelector(".card-title").textContent = `#${index + 1}`;
+        //fragment.querySelector(".card-title").textContent = `#${index + 1}`;
         //fragment.querySelector(".card-content").textContent = `${item.text}`;
         fragment.querySelector(".card-content").innerHTML = item.html_md
         // Delete button and it's event listener
