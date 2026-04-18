@@ -58,6 +58,9 @@ textarea:focus {
   transform: scale(1.05);
   background: #333333;
 }
+.card-content .note_textarea {
+  margin-left:20px;
+}
 
 .search-results {
     display: ruby;
@@ -145,7 +148,13 @@ textarea:focus {
   height: 220px;
   opacity: 1;
 }
-
+.card3 #cancel_update .circle {
+  background-color: #ff5f2f;
+}
+.card3 #cancel_update.animated-button:active {
+  box-shadow: 0 0 0 4px #ff5f2f;
+  box-shadow: 0 0 0 4px #ff5f2fcc;
+}
 
 .card3 {
     width: auto;
@@ -159,6 +168,7 @@ textarea:focus {
     margin: 40px;
     font-size: 15px;
     font-family: monospace;
+    border-radius: 15px;
 }
 
 .card3:hover {
@@ -168,6 +178,8 @@ textarea:focus {
 .card3 .card-content{
   margin-bottom: 35px;
   white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
 }
 
 .card3 .all_buttons {
