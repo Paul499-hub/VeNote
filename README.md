@@ -16,7 +16,7 @@
 # 🚀 How to launch the project
 1. Make sure Docker is installed and running.
 2. Open a terminal in the project root directory (where `Dockerfile` and `docker-compose.yml` are).
-3. Run `docker compose build`.
+3. Run `docker compose build`. (only required the first time project is started)
 4. Run `docker compose up`.
 5. Open `http://127.0.0.1:48721/ui/home` in your browser.
 
