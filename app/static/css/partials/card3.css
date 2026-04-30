@@ -1,10 +1,13 @@
 .card3 #cancel_update .circle {
-  background-color: #ff5f2f;
+  /* background-color: #ff5f2f; */
+  background-color: #ff3838;
 }
 
 .card3 #cancel_update.animated-button:active {
-  box-shadow: 0 0 0 4px #ff5f2f;
-  box-shadow: 0 0 0 4px #ff5f2fcc;
+  /* box-shadow: 0 0 0 4px #ff5f2f;
+  box-shadow: 0 0 0 4px #ff5f2fcc; */
+  box-shadow: 0 0 0 4px #ff3838;
+  box-shadow: 0 0 0 4px #ff3838c7;
 }
 
 .card3 {

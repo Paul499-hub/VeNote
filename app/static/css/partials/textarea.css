@@ -1,7 +1,8 @@
 /* Input textarea */
 .note_textarea {
     min-width: 545px;
-    background: #212020;
+    /* background: #212020; */
+    background: #21202061;
     color: white;
     border: none;
     font-family: "Inter", sans-serif;
@@ -24,7 +25,8 @@
 }
 textarea:focus {
   transform: scale(1.05);
-  background: #333333;
+  /* background: #333333; */
+  background: #33333375;
 }
 .card-content .note_textarea {
   margin-left:20px;
