@@ -7,178 +7,72 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- STYLE .css -->
     <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/partials/logo.css">
+    <link rel="stylesheet" href="/static/css/partials/btn_area_wrapper.css">
+    <link rel="stylesheet" href="/static/css/partials/textarea.css">
+    <link rel="stylesheet" href="/static/css/partials/animated_btn.css">
+    <link rel="stylesheet" href="/static/css/partials/card3.css">
+    <link rel="stylesheet" href="/static/css/partials/search_results.css">
+    <link rel="stylesheet" href="/static/css/partials/btn_wrapper.css">
     <title>
         Venote
     </title>
 </head>
 <body>
-    <!-- <h1 class="test_cls">VeNote</h1> -->
-    <!-- <img src="/static/img/logo_small.png" alt="VeNote" class="logo_img"> -->
-    <!-- <img src="/static/img/VeNote_small.png" alt="VeNote" class="logo_img"> -->
-    <img src="/static/img/Venote3.png" alt="VeNote" class="logo_img">
-    <!-- <img src="/static/img/Venote4.png" alt="VeNote" class="logo_img"> -->
-    <!-- <img src="/static/img/VeNote5.png" alt="VeNote" class="logo_img"> -->
-    <!-- <img src="/static/img/VeNote5_2.png" alt="VeNote" class="logo_img"> -->
-
-    <textarea class="note_textarea" id="note_input" placeholder="Note text..."></textarea>
-    <!-- <div class="form-control">
-        <textarea id="note_input" class="input input-alt" placeholder="Type something intelligent" required="" type="text"></textarea>
-        <span class="input-border input-border-alt"></span>
-    </div> -->
-
+    <!-- LOGO  -->
+    {% include "partials/logo.html" %}
+    <!-- MAIN TEXTAREA  -->
+    <textarea class="note_textarea" id="main_note_input" placeholder="Note text..."></textarea>
+    <!-- BUTTONS UNDER TEXTAREA -->
     <div class="btn_area_wrapper">
-        <!-- <button id="save-note-btn">Save note</button> -->
-        <div class="btn_wrapper">
-            <button id="save-note-btn" class="animated-button">
-                <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                    ></path>
-                </svg>
-                <span class="text">⤓ save note</span>
-                <span class="circle"></span>
-                <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                    ></path>
-                </svg>
-            </button>
-        </div>
-        <!-- <button id="search-note-btn">Search note</button> -->
-        <div class="btn_wrapper">
-            <button id="search-note-btn" class="animated-button">
-                <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                    ></path>
-                </svg>
-                <span class="text">⌕ vector search</span>
-                <span class="circle"></span>
-                <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                    ></path>
-                </svg>
-            </button>
-        </div>
-        <!-- SEARCH NOTE SQLite -->
-        <div class="btn_wrapper">
-            <button id="search-note-sql-btn" class="animated-button">
-                <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                    ></path>
-                </svg>
-                <span class="text">⌕ sql search</span>
-                <span class="circle"></span>
-                <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                    ></path>
-                </svg>
-            </button>
-        </div>
+        <!-- SAVE NOTE BUTTON  -->
+        {% with button_id="save-note-btn", button_text="⤓ save note" %}
+            {% include "partials/base_button.html" %}
+        {% endwith %}
+        <!-- VECTOR SEARCH BUTTON  -->
+        {% with button_id="search-note-btn", button_text="⌕ vector search" %}
+            {% include "partials/base_button.html" %}
+        {% endwith %}
+        <!-- SQL SEARCH BUTTON  -->
+        {% with button_id="search-note-sql-btn", button_text="⌕ sql search" %}
+            {% include "partials/base_button.html" %}
+        {% endwith %}
     </div>
-
-
+    <!-- ALL SEARCH RESULT PARENT DIV -->
     <div id="search-results" class="search-results"></div>
-
+    <!-- INDIVIDUAL SEARCH RESULT TEMPLATE -->
     <template id="search-result-template">
         <div class="card3" id="card">
             <p class="card-content">Lorem ipsum</p>
             <div class="all_buttons">
                 <!-- DELETE NOTE BUTTON  -->
-                <div class="btn_wrapper">
-                    <button id="del_note" class="animated-button">
-                        <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                            d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                            ></path>
-                        </svg>
-                        <span class="text">X delete note</span>
-                        <span class="circle"></span>
-                        <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                            d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                            ></path>
-                        </svg>
-                    </button>
-                </div>
+                {% with button_id="del_note", button_text="X delete note" %}
+                    {% include "partials/base_button.html" %}
+                {% endwith %}
                 <!-- UPDATE NOTE BUTTON  -->
-                <div class="btn_wrapper">
-                    <button id="update_note" class="animated-button">
-                        <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                            d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                            ></path>
-                        </svg>
-                        <span class="text">⟳ update note</span>
-                        <span class="circle"></span>
-                        <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                            d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                            ></path>
-                        </svg>
-                    </button>
-                </div>
+                {% with button_id="update_note", button_text="⟳ update note" %}
+                    {% include "partials/base_button.html" %}
+                {% endwith %}
             </div>
         </div>
     </template>
-
+    <!-- SAVE / UPDATE_NOTE NOTE BUTTON TEMPLATE -->
     <template id="save_btn_template">
-        <!-- SAVE / UPDATE_NOTE NOTE BUTTON  -->
-        <div class="btn_wrapper">
-            <button id="save_note" class="animated-button">
-                <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                    ></path>
-                </svg>
-                <span class="text">↓ save note</span>
-                <span class="circle"></span>
-                <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                    ></path>
-                </svg>
-            </button>
-        </div>
+        {% with button_id="save_note", button_text="↓ save note" %}
+            {% include "partials/base_button.html" %}
+        {% endwith %}
     </template>
-
+    <!-- TEXTAREA TEMPLATE -->
     <template id="textarea_template">
         <textarea class="note_textarea" id="note_input" placeholder="Note text..."></textarea>
     </template>
-
+    <!-- CANCEL UPDATE BUTTON TEMPLATE -->
     <template id="cancel_btn_template">
-        <!-- CANCEL UPDATE BUTTON  -->
-        <div class="btn_wrapper">
-            <button id="cancel_update" class="animated-button">
-                <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                    ></path>
-                </svg>
-                <span class="text">↓ cancel update</span>
-                <span class="circle"></span>
-                <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                    ></path>
-                </svg>
-            </button>
-        </div>
+        {% with button_id="cancel_update", button_text="↓ cancel update" %}
+            {% include "partials/base_button.html" %}
+        {% endwith %}
     </template>
-
-
 
 <script src="/static/js/main.js"></script>
 </body>
 </html>
-
-
-
-
-<!-- <button id="del_note" class="del_note_btn">Pay
-    <svg class="svgIcon" viewBox="0 0 576 512"><path d="M512 80c8.8 0 16 7.2 16 16v32H48V96c0-8.8 7.2-16 16-16H512zm16 144V416c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V224H528zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm56 304c-13.3 0-24 10.7-24 24s10.7 24 24 24h48c13.3 0 24-10.7 24-24s-10.7-24-24-24H120zm128 0c-13.3 0-24 10.7-24 24s10.7 24 24 24H360c13.3 0 24-10.7 24-24s-10.7-24-24-24H248z"></path></svg>
-</button> -->
-

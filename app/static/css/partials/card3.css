@@ -1,0 +1,38 @@
+.card3 #cancel_update .circle {
+  background-color: #ff5f2f;
+}
+
+.card3 #cancel_update.animated-button:active {
+  box-shadow: 0 0 0 4px #ff5f2f;
+  box-shadow: 0 0 0 4px #ff5f2fcc;
+}
+
+.card3 {
+    width: auto;
+    height: auto;
+    /* background: #212121; */
+    background: #292727;
+    box-shadow: rgba(0, 0, 0, 0.4) 10px 20px 30px, rgba(0, 0, 0, 0.3) 10px 1px 53px 3px, rgba(1, 0, 0, 0.2) 0px -1px 3px inset;
+    transition: all 0.5s;
+    color: #d8d8d8;
+    padding: 50px;
+    margin: 40px;
+    font-size: 15px;
+    font-family: monospace;
+    border-radius: 15px;
+}
+
+.card3:hover {
+  transform: scale(1.021);
+}
+
+.card3 .card-content{
+  margin-bottom: 35px;
+  white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
+}
+
+.card3 .all_buttons {
+  display: ruby;
+}

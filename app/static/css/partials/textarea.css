@@ -1,0 +1,31 @@
+/* Input textarea */
+.note_textarea {
+    min-width: 545px;
+    background: #212020;
+    color: white;
+    border: none;
+    font-family: "Inter", sans-serif;
+    font-size: 17px;
+    letter-spacing: 1px;
+    border-radius: 22px;
+    padding: 28px;
+    box-shadow: 0px 0px 26px #0e0e0e;
+    transition: all 0.2s ease;
+    transform-origin: center;
+    margin-left: 4vw;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.note_textarea,
+.note_textarea:focus,
+.note_textarea:focus-visible,
+.note_textarea:active {
+  outline: none;
+}
+textarea:focus {
+  transform: scale(1.05);
+  background: #333333;
+}
+.card-content .note_textarea {
+  margin-left:20px;
+}
