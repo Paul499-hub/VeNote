@@ -8,7 +8,7 @@ const searchNoteSQLBtnEl = document.getElementById("search-note-sql-btn")
 const searchNoteBtnEl = document.getElementById("search-note-btn") // vector search
 const searchResultsEl = document.getElementById("search-results") // search results parent div
 const saveNoteBtnEl = document.getElementById("save-note-btn")
-const noteInputEl = document.getElementById("note_input")
+const noteInputEl = document.getElementById("main_note_input")
 
 searchNoteBtnEl.addEventListener("click", searchNote)
 saveNoteBtnEl.addEventListener("click", saveNote)
@@ -27,22 +27,13 @@ noteInputEl.addEventListener('keydown', function(e) {
   }
 });
 
-//  /storage/update_note  -> id text
-
-/// -----------------------------------------!!!!!! FIX DUPLICATE '#card' and other ID's CAUSED BY YOUR TEMPLATES !!!!!! 
-///- ------------------------------------- !!!!!! FIX infinite update note button generation xDDD 
-/// --------- create X button that reverts card back to original markdown representation
-/// ---- maybe undo button ? 
-
-// ---- make sure html / other code is rendered nicely inside
-
 // Helper function to convert search result data to html cards
 function display_found_cards_HTML(data){
     console.log(data)
     searchResultsEl.innerHTML = "";
     data.forEach( (item, index)=>{
         const fragment = searchResultTemplate.content.cloneNode(true);
-        cardEl = fragment.querySelector("#card")
+        const cardEl = fragment.querySelector("#card")
         // write markdown into card-content
         fragment.querySelector(".card-content").innerHTML = item.html_md
         // Delete button and it's event listener

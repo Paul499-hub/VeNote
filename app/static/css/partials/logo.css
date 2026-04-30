@@ -1,0 +1,9 @@
+.logo_img {
+  display: block;
+  width: 220px;
+  height: auto;
+  /* margin: 0 auto 24px auto; */
+  margin-left: 4%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
