@@ -1,0 +1,63 @@
+.codehilite {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 16px;
+  border-radius: 16px;
+  overflow-x: auto;
+}
+
+.codehilite pre {
+  margin: 0;
+  background: transparent;
+}
+
+.card-content code {
+  background: #353535;
+  color:  #d4d4d4;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 0.95em;
+}
+
+.card-content .codehilite code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+.card-content pre code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* Pygments token colors */
+.codehilite .k { color: #569cd6; }   /* keyword */
+.codehilite .kn { color: #569cd6; }  /* keyword namespace */
+.codehilite .nn { color: #4ec9b0; }  /* namespace/name */
+.codehilite .n { color: #dcdcaa; }   /* name */
+.codehilite .p { color: #d4d4d4; }   /* punctuation */
+.codehilite .s { color: #ce9178; }   /* string */
+.codehilite .s1 { color: #ce9178; }
+.codehilite .s2 { color: #ce9178; }
+.codehilite .mi { color: #b5cea8; }  /* int */
+.codehilite .mf { color: #b5cea8; }  /* float */
+.codehilite .c { color: #6a9955; }   /* comment */
+.codehilite .c1 { color: #6a9955; }
+.codehilite .o { color: #d4d4d4; }   /* operator */
+.codehilite .w { color: #d4d4d4; }   /* whitespace */
+.codehilite .bp { color: #9cdcfe; }  /* builtins / self */
+.codehilite .nf { color: #dcdcaa; }  /* function names */
+.codehilite .fm { color: #dcdcaa; }  /* magic methods */
+.codehilite .nc { color: #4ec9b0; }  /* class names */
+.codehilite .nb { color: #9cdcfe; }  /* builtins */
+.codehilite .nd { color: #c586c0; }  /* decorators */
+
+/* HTML */
+.codehilite .nt { color: #569cd6; }  /* tag name */
+.codehilite .na { color: #9cdcfe; }  /* attribute name */
+.codehilite .s  { color: #ce9178; }  /* string */
+.codehilite .o  { color: #d4d4d4; }  /* operator */
+.codehilite .p  { color: #d4d4d4; }  /* punctuation */
