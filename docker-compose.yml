@@ -18,6 +18,7 @@ services:
       - qdrant
     volumes:
       - ./app:/app/app
+      - hf_cache:/root/.cache/huggingface
 
   qdrant:
     image: qdrant/qdrant:latest
@@ -30,3 +31,4 @@ services:
 
 volumes:
   qdrant_data:
+  hf_cache:
