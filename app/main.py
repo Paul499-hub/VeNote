@@ -4,6 +4,7 @@ from fastapi import FastAPI
 import uvicorn
 import logging
 # Modules
+from app.routers.vector_variant_generator import router as vv_router
 from app.routers.embedding import router as embedding_router
 from app.routers.storage import router as storage_router
 from app.routers.qdrant import router as qdrant_router
@@ -37,6 +38,7 @@ app.include_router(storage_router)
 app.include_router(qdrant_router)
 app.include_router(sqlite_router)
 app.include_router(ui_router)
+app.include_router(vv_router)
 
 @app.get("/")
 async def root():

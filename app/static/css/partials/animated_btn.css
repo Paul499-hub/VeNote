@@ -40,8 +40,8 @@
   transform: translate(-50%, -50%);
   width: 20px;
   height: 20px;
-  /* background-color: greenyellow; */
-  background-color: #2ff5ff;
+  background-color: greenyellow;
+  /* background-color: #2ff5ff; */
   border-radius: 50%;
   opacity: 0;
   transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
@@ -73,10 +73,10 @@
 }
 .animated-button:active {
   scale: 0.95;
-  /* box-shadow: 0 0 0 4px greenyellow;
-  box-shadow: 0 0 0 4px #adff2f; */
-  box-shadow: 0 0 0 4px #2ff5ff;
-  box-shadow: 0 0 0 4px #2ff5ffa9;
+  box-shadow: 0 0 0 4px greenyellow;
+  box-shadow: 0 0 0 4px #adff2f;
+  /* box-shadow: 0 0 0 4px #2ff5ff;
+  box-shadow: 0 0 0 4px #2ff5ffa9; */
 }
 .animated-button:hover .circle {
   width: 220px;

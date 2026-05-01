@@ -1,13 +1,13 @@
-from sentence_transformers import SentenceTransformer
 from app.schemas.embedding import IN_TextEmbedRequest, F_EmbedTextOut
+from app.ai_models.model_registry import embedding_model
 from app.core.config import settings
 
 class EmbeddingService:
     def __init__(self):
-        self.model = SentenceTransformer(settings.embedding_model, trust_remote_code=True)
+        pass
 
     def embed_text(self, text:str) -> F_EmbedTextOut:
-        vector = self.model.encode(text)
+        vector = embedding_model.encode(text)
         return F_EmbedTextOut.model_validate({
             "status": "ok",
             "vector": vector.tolist(), # NumPy array -> list
