@@ -1,9 +1,8 @@
 from fastapi import APIRouter, HTTPException
 # Modules
-from app.schemas.embedding import IN_UpdateRequest
+from app.schemas.embedding import IN_UpdateRequest, IN_SimilaritySearchRequest
 from app.core.services import storage_svc
 from app.schemas.note import NoteCreate
-
 
 router = APIRouter(prefix='/storage', tags=["Storage"])
 
@@ -32,7 +31,7 @@ def r_delete_note(
 @router.post("/recreate_from_sqlite_file", status_code=200)
 def r_recreate_from_sqlite():
     try:
-        return storage_svc.recreate_sqlite()
+        return storage_svc.recreate_from_sqlite()
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
@@ -44,5 +43,12 @@ def r_update_note(
             ):
     try:
         return storage_svc.update_note(note_id=payload.id, text=payload.text)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@router.post("/similarity_search", status_code=200)
+def r_vector_search(payload: IN_SimilaritySearchRequest):
+    try:
+        return storage_svc.vector_search_note(payload)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))

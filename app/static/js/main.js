@@ -29,6 +29,12 @@ noteInputEl.addEventListener('keydown', function(e) {
 
 // Helper function to convert search result data to html cards
 function display_found_cards_HTML(data){
+    // data =  list of dicts with keys
+    // "id": n.id,
+    // "score": memory[n.id],
+    // "text": n.text,
+    // "html_md" : parse_into_markdown(n.text), 
+    // >> this was from vector search
     console.log(data)
     searchResultsEl.innerHTML = "";
     data.forEach( (item, index)=>{
@@ -97,7 +103,7 @@ async function searchNote(){
         alert("Note text is empty!");
         return;
     }
-    const response = await fetch("/qdrant/similarity_search", {
+    const response = await fetch("/storage/similarity_search", {
             method: "POST",
             headers: {"Content-Type": "application/json"}, //application/x-www-form-urlencoded
             body: JSON.stringify({"text":text, "args_limit":5}) ,
@@ -132,8 +138,8 @@ function add_event_listener_on_update_note_btn2(cardEl, noteId, raw_text){
         const parentCardEl = event.currentTarget.closest("#card")
         const allButtonsEl = event.currentTarget.closest(".all_buttons")
         const cardContentEl = parentCardEl.querySelector(".card-content");
-        cardContentEl.innerHTML = '';
-        //  add new textarea using template
+        cardContentEl.innerHTML = ''
+        // add new textarea using template
         const clonedTextareaTemplate = textareaTemplate.content.cloneNode(true);
         const clonedSaveBtnTemplate = saveBtnTemplate.content.cloneNode(true);
         const clonedCancelUpdateTemplate = cancelUpdateTemplate.content.cloneNode(true);
@@ -142,11 +148,14 @@ function add_event_listener_on_update_note_btn2(cardEl, noteId, raw_text){
         const clonedSaveBtnEl = clonedSaveBtnTemplate.querySelector("#save_note")
         const clonedCancelBtnEl = clonedCancelUpdateTemplate.querySelector("#cancel_update")
         // replace text from routes raw text output 'text'
-        clonedTextareaEl.value = raw_text;
+        clonedTextareaEl.value = raw_text
+        cardContentEl.appendChild(clonedTextareaTemplate)
+        // Expand textarea
+        clonedTextareaEl.style.boxSizing = "border-box"
+        clonedTextareaEl.style.height = `${clonedTextareaEl.scrollHeight}px`
         // add new buttons
-        cardContentEl.appendChild(clonedTextareaTemplate);
-        allButtonsEl.appendChild(clonedSaveBtnTemplate);
-        allButtonsEl.appendChild(clonedCancelUpdateTemplate);
+        allButtonsEl.appendChild(clonedSaveBtnTemplate)
+        allButtonsEl.appendChild(clonedCancelUpdateTemplate)
         // remove update note button
         update_wrapperEl.remove();
         // add event listeners to new buttons
@@ -159,6 +168,7 @@ function add_event_listener_on_save_btn(save_btn, noteId, clonedTextareaEl){
     save_btn.onclick = async(event) => {
         // read text from new textarea
         const text = clonedTextareaEl.value.trim()
+        const closest_card3 = event.currentTarget.closest(".card3")
         const response = await fetch("/storage/update_note", {
             method: "PATCH",
             headers: {"Content-Type":"application/json"},
@@ -171,7 +181,40 @@ function add_event_listener_on_save_btn(save_btn, noteId, clonedTextareaEl){
         }
         const result = await response.json();
         alert("✨ Note updated");
+        await replace_single_card(noteId, closest_card3)
     }
+}
+
+async function replace_single_card(noteId, replaceTargetEl){
+    // Refresh the note - get new parsed text by sql fetch by id /sqlite/get_note/{note_id}
+        const response = await fetch(`/sqlite/get_note/${noteId}`, {method: "GET"});
+        if (!response.ok){
+            alert("Note was saved but could not be refreshed in UI")
+            return;
+        }
+        const data = await response.json();
+        // return {
+        //     "id": note.id,
+        //     "score": 1.0,
+        //     "text": note.text,
+        //     "html_md": parse_into_markdown(note.text)
+        // }
+        // Create textarea , all_buttons(delete, update)
+        const fragment = searchResultTemplate.content.cloneNode(true);
+        const cardEl = fragment.querySelector(".card3")
+        const raw_text = data.text
+        // write markdown into card-content
+        fragment.querySelector(".card-content").innerHTML = data.html_md
+        // Delete button
+        const del_btn = fragment.getElementById("del_note")
+        add_event_listener_on_delete_btn(del_btn, data.id);
+        // Update button (already created in fragment)
+        add_event_listener_on_update_note_btn2(cardEl, data.id, raw_text);
+        // store useful data inside card's dataset 
+        cardEl.dataset.noteId = data.id;
+        cardEl.dataset.rawText = data.text;
+        cardEl.dataset.htmlMd = data.html_md;
+        replaceTargetEl.replaceWith(fragment)
 }
 
 function add_event_listener_on_cancel_update_btn(btn, savedCardEl){
@@ -194,32 +237,3 @@ function print_fragment(fragment){
     temp.appendChild(fragment.cloneNode(true));
     console.log(temp.innerHTML);
 }
-
-
-
-// -------- old event listener UPDATE NOTE
-// function add_event_listener_on_update_note_btn_old(fragment, noteId){
-//     // Update button and it's event listener
-//     const update_btn = fragment.getElementById("update_note")
-//     //const update_btn = fragment.querySelector("#update_note")
-//     update_btn.onclick = async(event) => {
-//         const text = noteInputEl.value.trim();
-//         if (!text){
-//             alert("Note text is empty!");
-//             return;
-//         }
-//         console.log({ id: noteId, text });
-//         const response = await fetch('/storage/update_note', {
-//             method: "PATCH",
-//             headers: {"Content-Type": "application/json"},
-//             body: JSON.stringify({"id": noteId, "text":text})
-//         });
-//         if (!response.ok){
-//             const err = await response.json();
-//             alert(err.detail || "Update failed");
-//             return;
-//         }
-//         const result = await response.json();
-//         alert("✨ Note updated");
-//     }
-// }

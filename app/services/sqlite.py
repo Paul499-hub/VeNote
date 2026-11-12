@@ -1,9 +1,11 @@
+from collections.abc import Iterable
 from sqlalchemy import select
 # Modules
 from app.core.helpers import parse_into_markdown
 from app.db.db import SessionLocal
 from app.db.models import NoteORM
 from app.schemas.note import Note
+
 
 class SQLiteService():
     def create_note(self, text:str) -> NoteORM:
@@ -30,6 +32,17 @@ class SQLiteService():
                 }
                 for s in search_result
             ]
+        finally:
+            session.close()
+
+    def find_notes_by_ids(self, ids: Iterable[int]) -> list[NoteORM]:
+        session = SessionLocal()
+        try:
+            stmt = (
+                select(NoteORM)
+                .where(NoteORM.id.in_(ids))
+            )
+            return list(session.execute(stmt).scalars().all())
         finally:
             session.close()
     
@@ -82,5 +95,20 @@ class SQLiteService():
             session.commit()
             session.refresh(old_note)
             return {"updated_id":f"{note_id}", "old_text":old_text_cache, "new_text":new_note.text}
+        finally:
+            session.close()
+
+    def get_by_id(self, note_id:int):
+        session = SessionLocal()
+        try:
+            note:NoteORM = session.get(NoteORM, note_id)
+            if not note:
+                raise ValueError("Note not found")
+            return {
+                "id": note.id,
+                "score": 1.0,
+                "text": note.text,
+                "html_md": parse_into_markdown(note.text)
+            }
         finally:
             session.close()

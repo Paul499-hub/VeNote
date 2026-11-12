@@ -28,9 +28,7 @@ def r_find_note_sqlite(
         raise HTTPException(status_code=500, detail=str(e))
     
 @router.delete("/del/{note_id}", status_code = 201)
-def r_delete_note_sqlite(
-                        note_id: int
-                        ):
+def r_delete_note_sqlite(note_id: int):
     try:
         return sqlite_svc.delete_note(note_id = note_id)
     except ValueError as e:
@@ -67,3 +65,11 @@ def r_update_note(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@router.get("/get_note/{note_id}", status_code=200)
+def r_get_by_id(note_id: int):
+    try:
+        return sqlite_svc.get_by_id(note_id)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
