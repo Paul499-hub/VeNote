@@ -26,7 +26,7 @@ def r_similarity_search(
                         payload: IN_SimilaritySearchRequest,
                     ):
     try:
-        return qdrant_svc.similarity_search(payload, args_limit=payload.args_limit)
+        return qdrant_svc.similarity_search(payload)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 

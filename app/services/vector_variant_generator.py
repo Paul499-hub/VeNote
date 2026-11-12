@@ -7,7 +7,7 @@ class VectorVariantGeneratorService():
     def msg_ai(self, msg:str):
         messages = [{"role":"user", "content":msg}]
         text = vv_tokenizer.apply_chat_template(
-            messages, 
+            messages,
             tokenize=False,
             add_generation_prompt=True,
         )
